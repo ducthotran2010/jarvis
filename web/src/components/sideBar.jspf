@@ -1,0 +1,28 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<% 
+    String[] arr = {"", "", ""};
+    
+    int position = request.getRequestURI().length() - new StringBuilder(request.getRequestURI()).reverse().indexOf("/");
+    String currentActive = request.getRequestURI().substring(position);
+    
+    switch (currentActive) {
+        default:
+        case "index.jsp":
+            arr[0] = "active";
+            break;
+        case "searchMission.jsp":
+            arr[1] = "active";
+            break;
+        case "searchEquipment.jsp":
+            arr[2] = "active";
+            break;
+    }
+%>
+
+<div style="width: 320px;height: 90vh; border: 1px solid; float: left">
+    <a class="<%= arr[0] %>" href="<%= request.getContextPath() %>/src/containers/admin/index.jsp">Manager User</a>
+    <a class="<%= arr[1] %>" href="<%= request.getContextPath() %>/src/containers/admin/searchMission.jsp">Manager Mission</a>
+    <a class="<%= arr[2] %>" href="searchEquipment.jsp">Manager Equipment</a>
+</div>

@@ -1,0 +1,49 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="Tho.Models.MissionDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page pageEncoding="UTF-8" %>
+<h2>Search Mission</h2>
+
+<form method="POST" action="MainController">
+    <input name="txtSearch" autofocus />
+    <input type="hidden" name="txtType" value="Mission" />
+    <input type="submit" name="action" value="Search"/>
+</form>
+
+<%
+    ArrayList<MissionDTO> resultMission = (ArrayList<MissionDTO>) request.getAttribute("INFO");
+    if (resultMission != null) {
+        %><h4>Result</h4><%
+        if (resultMission.size() == 0) {
+            %>No record found<%
+        } else { 
+            int count = 0;
+        %>
+        <table>
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Date Start</td>
+                    <td>Date End</td>
+                    <td>Status</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (MissionDTO dto: resultMission) { %>
+                <tr>
+                    <td><%= ++count %></td>
+                    <td><%= dto.getId() %></td>
+                    <td><%= dto.getName() %></td>
+                    <td><%= dto.getDateStart() %></td>
+                    <td><%= dto.getDateEnd() %></td>
+                    <td><%= dto.getStatus() %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <%
+        }
+    }
+%>

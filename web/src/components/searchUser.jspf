@@ -1,0 +1,45 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="Tho.Models.UserDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page pageEncoding="UTF-8" %>
+<h2>Search User</h2>
+
+<form method="POST" action="MainController">
+    <input name="txtSearch" autofocus />
+    <input type="hidden" name="txtType" value="User" />
+    <input type="submit" name="action" value="Search"/>
+</form>
+
+<%
+    ArrayList<UserDTO> result = (ArrayList<UserDTO>) request.getAttribute("INFO");
+    if (result != null) {
+        %><h4>Result</h4><%
+        if (result.size() == 0) {
+            %>No record found<%
+        } else { 
+            int count = 0;
+        %>
+        <table>
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Username</td>
+                    <td>Full name</td>
+                    <td>Role</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (UserDTO dto: result) { %>
+                <tr>
+                    <td><%= ++count %></td>
+                    <td><%= dto.getUsername() %></td>
+                    <td><%= dto.getFullname() %></td>
+                    <td><%= dto.getRole() %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <%
+        }
+    }
+%>
