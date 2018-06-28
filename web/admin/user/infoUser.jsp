@@ -26,10 +26,10 @@
         </a>
         <form method="POST" action="UserManager.MainController">
             <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
-            <input type="hidden" name="txtType" value="${param.txtType}" />
             <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
             <input name="action" value="Edit" type="submit" />
             <input name="action" value="Reset password" type="submit" />
+            <input name="action" value="Update avatar" type="submit" />
         </form>
     </body>
 </html>

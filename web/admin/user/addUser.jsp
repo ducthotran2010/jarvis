@@ -20,7 +20,7 @@
             <c:param name="action" value="Search"></c:param>
         </c:url>
 
-        <form method="POST" action="UserManager.AddController" enctype="multipart/form-data">
+        <form method="POST" action="UserManager.MainController">
             <input autofocus required name="txtUsername" />
             <p id="arlet_username"></p>
             <input required minlength=8 type="password" id="password" name="txtPassword" />
@@ -32,8 +32,6 @@
             <input name="txtPowers" />
             <input name="txtHeight" />
             <input name="txtWeight" />
-            <input type="date" name="txtdateJoined" />
-            <input type="file" name="txtAvatar" value="" />
             
             <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
 

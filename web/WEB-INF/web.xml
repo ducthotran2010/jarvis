@@ -104,6 +104,10 @@
         <servlet-name>MissionManager.CheckIdController</servlet-name>
         <servlet-class>Tho.Controllers.Admin.MissionManager.CheckIdController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserManager.UploadImageController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.UserManager.UploadImageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>MissionManager.CheckIdController</servlet-name>
         <url-pattern>/MissionManager.CheckIdController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManager.UploadImageController</servlet-name>
+        <url-pattern>/UserManager.UploadImageController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

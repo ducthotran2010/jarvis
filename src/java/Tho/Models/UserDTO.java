@@ -13,7 +13,7 @@ import java.sql.Date;
  * @author ThoDT
  */
 public class UserDTO implements Serializable {
-    private String username, password, role, fullname, abilities, powers, height, weight; 
+    private String username, password, role, fullname, abilities, powers, height, weight, urlAvatar = "src/img/default.png"; 
     private Date dateJoined;
 
     public UserDTO(String username, String role, String fullname, String abilities, String powers, String height, String weight, Date dateJoined) {
@@ -36,6 +36,19 @@ public class UserDTO implements Serializable {
         this.powers = powers;
         this.height = height;
         this.weight = weight;
+        this.dateJoined = dateJoined;
+    }
+
+    public UserDTO(String username, String role, String fullname, String abilities, String powers, String height, String weight, Date dateJoined, String urlAvatar) {
+        this.username = username;
+        this.role = role;
+        this.fullname = fullname;
+        this.abilities = abilities;
+        this.powers = powers;
+        this.height = height;
+        this.weight = weight;
+        if (urlAvatar != null)
+            this.urlAvatar = urlAvatar;
         this.dateJoined = dateJoined;
     }
     
@@ -74,4 +87,12 @@ public class UserDTO implements Serializable {
     public String getPassword() {
         return password;
     }
+
+    public String getUrlAvatar() {
+        return urlAvatar;
+    }
+
+    public void setUrlAvatar(String urlAvatar) {
+        this.urlAvatar = urlAvatar;
+    }    
 }

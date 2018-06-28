@@ -50,10 +50,10 @@ public class UserDAO implements Serializable {
     
     public List<UserDTO> findByLikeFullname(String search) throws ClassNotFoundException, SQLException {
         List<UserDTO> result = null;
-        String username, role, fullname, abilities, powers, height, weight;
+        String username, role, fullname, abilities, powers, height, weight, urlAvatar;
         Date dateJoined;
         try {
-            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined FROM [User] WHERE fullname LIKE ?";
+            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar FROM [User] WHERE fullname LIKE ?";
             conn = DBConnection.getConnection();
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, "%" + search + "%");
@@ -68,7 +68,8 @@ public class UserDAO implements Serializable {
                 height = rs.getString("height");
                 weight = rs.getString("weight");
                 dateJoined = rs.getDate("dateJoined");
-                result.add(new UserDTO(username, role, fullname, abilities, powers, height, weight, dateJoined));
+                urlAvatar = rs.getString("urlAvatar");
+                result.add(new UserDTO(username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar));
             }
         } finally {
             closeConnection();
@@ -164,6 +165,21 @@ public class UserDAO implements Serializable {
             closeConnection();
         }
         
+        return check;
+    }
+
+    public boolean updateAvatarUser(String username, String urlAvatar) throws ClassNotFoundException, SQLException {
+        boolean check = false;
+        try {
+            String sql = "UPDATE [User] SET urlAvatar = ? WHERE username = ?";
+            conn = DBConnection.getConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, urlAvatar);
+            preStm.setString(2, username);
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
         return check;
     }
 }

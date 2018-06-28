@@ -47,6 +47,7 @@
                     <thead>
                         <tr>
                             <td>No</td>
+                            <td>Avatar</td>
                             <td>Username</td>
                             <td>Full name</td>
                             <td>Role</td>
@@ -56,6 +57,7 @@
                         <% for (UserDTO dto: result) { %>
                         <tr>
                             <td><%= ++count %></td>
+                            <td><img height="100" src="<%= dto.getUrlAvatar() %>"/></td>
                             <td><%= dto.getUsername() %></td>
                             <td><%= dto.getFullname() %></td>
                             <td><%= dto.getRole() %></td>
