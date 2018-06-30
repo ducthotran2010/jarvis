@@ -1,0 +1,60 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+
+
+<div class="sideBar ui inverted massive secondary vertical menu accordion">
+    <div id="particles-js"></div> 
+
+    <a class="item">Jarvis Web</a>
+
+    <hr/>
+
+    <div class="ui title item">
+        <i class="dropdown icon"></i>
+        <p>
+            <i class="user icon"></i>
+            ${sessionScope.USER}
+        </p>
+    </div>
+
+    <div class="content">
+        <a class="item" href=""><i class="user circle icon"></i>My profile</a>
+        <a class="item" href=""><i class="edit icon"></i>Edit profile</a>       
+        <a class="item" href="<%= request.getContextPath()%>/MainController?action=Logout"><i class="power off icon"></i>Logout</a>
+    </div>
+
+    <hr/>
+
+    <a  
+        id="SB-Dashboard" 
+        class="item" 
+        href="<%= request.getContextPath()%>/RedirectController?page=admin/index.jsp">
+        <i class="grid layout icon"></i>
+        Dashboard
+    </a>
+
+    <a 
+        id="SB-UserManager"
+        class="item" 
+        href="<%= request.getContextPath()%>/RedirectController?page=admin/user/index.jsp">
+        <i class="users icon"></i>
+        User Manager
+    </a>
+
+    <a 
+        id="SB-MissionManager"
+        class="item" 
+        href="<%= request.getContextPath()%>/RedirectController?page=admin/mission/index.jsp">
+        <i class="tasks icon"></i>
+        Mission Manager
+    </a>
+
+</div>
+
+<script>
+    $('.ui.accordion').accordion();
+</script>
+
+<script src="src/js/particles.min.js" type="text/javascript"></script>
+<script src="src/js/particle-sidebar.js" type="text/javascript"></script>

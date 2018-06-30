@@ -1,0 +1,53 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div class="ui massive secondary vertical menu accordion">
+
+    <a class="item">Jarvis Web</a>
+
+    <hr/>
+
+    <div class="ui title item">
+        <i class="dropdown icon"></i>
+        <p>
+            <i class="user icon"></i>
+            ${sessionScope.USER}
+        </p>
+    </div>
+
+    <div class="content">
+        <a class="item" href=""><i class="user circle icon"></i>My profile</a>
+        <a class="item" href=""><i class="edit icon"></i>Edit profile</a>       
+        <a class="item" href="<%= request.getContextPath()%>/MainController?action=Logout"><i class="power off icon"></i>Logout</a>
+    </div>
+
+    <hr/>
+
+    <a  
+        id="SB-Dashboard" 
+        class="item" 
+        href="<%= request.getContextPath()%>/RedirectController?page=user/index.jsp">
+        <i class="grid layout icon"></i>
+        Dashboard
+    </a>
+
+    <a 
+        id="SB-UserViewer"
+        class="item" 
+        href="<%= request.getContextPath()%>/RedirectController?page=user/user/index.jsp">
+        <i class="users icon"></i>
+        User Viewer
+    </a>
+
+    <a 
+        id="SB-MissionViewer"
+        class="item" 
+        href="<%= request.getContextPath()%>/RedirectController?page=user/mission/index.jsp">
+        <i class="tasks icon"></i>
+        Mission Viewer
+    </a>
+
+</div>
+
+<script>
+    $('.ui.accordion').accordion();
+</script>

@@ -21,7 +21,7 @@
         
         <form method="POST" action="UserManager.UploadImageController" enctype="multipart/form-data">
             <input type="hidden" name="txtUsername" value="${param.txtUsername}"/>
-            <input name="txtSearch" value="${param.txtSearch}" />
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
             <input type="file" name="urlAvatar"/>
             
             <a href="${searchInfo}"><button type="button">Skip</button></a>
