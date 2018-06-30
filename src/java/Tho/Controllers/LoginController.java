@@ -21,7 +21,8 @@ public class LoginController extends HttpServlet {
 
     private static final String ADMIN = "admin/index.jsp",
             USER = "user/index.jsp",
-            ERROR = "error.jsp";
+            ERROR = "error.jsp",
+            LOGIN = "index.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +36,14 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = LOGIN;
         try {
             String username = request.getParameter("txtUsername");
             String password = request.getParameter("txtPassword");
             UserDAO dao = new UserDAO();
             String role = dao.checkLogin(username, password);
             if (role.equals("failed")) {
-                request.setAttribute("ERROR", "Invalid username & password");
+                request.setAttribute("ERROR", "Invalid username or password");
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("USER", dao.findByUsername(username).getFullname());
@@ -59,6 +60,7 @@ public class LoginController extends HttpServlet {
                 }
             }
         } catch (Exception e) {
+            url = ERROR;
             log("Error at LoginController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
