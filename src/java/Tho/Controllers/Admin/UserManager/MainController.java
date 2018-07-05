@@ -25,6 +25,8 @@ public class MainController extends HttpServlet {
             RESET_PASSWORD = "admin/user/resetPassword.jsp",
             UPDATE_PASSWORD = "UserManager.UpdatePasswordController",
             UPDATE_IMAGE = "admin/user/uploadImage.jsp",
+            DELETE = "UserManager.DeleteController",
+            DEACTIVE = "UserManager.DeactiveController",
             INPUT_USER = "admin/user/addUser.jsp",
             CHECK_USERNAME = "UserManager.CheckUsernameController";
 
@@ -69,6 +71,12 @@ public class MainController extends HttpServlet {
                     break;
                 case "Update avatar":
                     url = UPDATE_IMAGE;
+                    break;
+                case "Delete":
+                    url = DELETE;
+                    break;
+                case "Deactive":
+                    url = DEACTIVE;
                     break;
                 case "Input Account":
                     url = INPUT_USER;

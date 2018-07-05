@@ -37,9 +37,15 @@ public class SearchController extends HttpServlet {
         String url = ERROR;
         try {
             String search = request.getParameter("txtSearch");
+            
             List result = null;
             UserDAO myUserDAO = new UserDAO();
-            result = myUserDAO.findByLikeFullname(search);
+            if (search != null) {
+                result = myUserDAO.findByLikeFullname(search);
+            } else {
+                result = myUserDAO.getAllUser();
+            }
+            
             url = USER_MANAGER;
             request.setAttribute("INFO", result);
         } catch (Exception e) {

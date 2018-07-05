@@ -32,8 +32,9 @@ public class UserDAO implements Serializable {
     
     public String checkLogin(String username, String password) throws SQLException, ClassNotFoundException {
         String result = "failed";
+        boolean isDeactive = false;
         try {
-            String sql = "SELECT role FROM [User] WHERE username = ? and password = ?";
+            String sql = "SELECT role, isDeactive FROM [User] WHERE username = ? and password = ?";
             conn = DBConnection.getConnection();
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, username);
@@ -41,6 +42,8 @@ public class UserDAO implements Serializable {
             rs = preStm.executeQuery();
             if (rs.next()) {
                 result = rs.getString("role");
+                isDeactive = rs.getBoolean("isDeactive");
+                if (isDeactive) result = "deactived";
             }
         } finally {
             closeConnection();
@@ -53,7 +56,7 @@ public class UserDAO implements Serializable {
         String username, role, fullname, abilities, powers, height, weight, urlAvatar;
         Date dateJoined;
         try {
-            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar FROM [User] WHERE fullname LIKE ?";
+            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar FROM [User] WHERE fullname LIKE ? AND isDeactive <> 1";
             conn = DBConnection.getConnection();
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, "%" + search + "%");
@@ -77,12 +80,40 @@ public class UserDAO implements Serializable {
         return result;
     }
     
-    public UserDTO findByUsername(String search) throws ClassNotFoundException, SQLException {
-        UserDTO result = null;
-        String username, role, fullname, abilities, powers, height, weight;
+    public List<UserDTO> getAllUser() throws ClassNotFoundException, SQLException {
+        List<UserDTO> result = null;
+        String username, role, fullname, abilities, powers, height, weight, urlAvatar;
         Date dateJoined;
         try {
-            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined FROM [User] WHERE username = ?";
+            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar FROM [User] WHERE isDeactive <> 1";
+            conn = DBConnection.getConnection();
+            preStm = conn.prepareStatement(sql);
+            rs = preStm.executeQuery();
+            result = new ArrayList<>();
+            while(rs.next()) {
+                username = rs.getString("username");
+                role = rs.getString("role");
+                fullname = rs.getString("fullname");
+                abilities = rs.getString("abilities");
+                powers = rs.getString("powers");
+                height = rs.getString("height");
+                weight = rs.getString("weight");
+                dateJoined = rs.getDate("dateJoined");
+                urlAvatar = rs.getString("urlAvatar");
+                result.add(new UserDTO(username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar));
+            }
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+    
+    public UserDTO findByUsername(String search) throws ClassNotFoundException, SQLException {
+        UserDTO result = null;
+        String username, role, fullname, abilities, powers, height, weight, urlAvatar;
+        Date dateJoined;
+        try {
+            String sql = "SELECT username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar FROM [User] WHERE username = ?";
             conn = DBConnection.getConnection();
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, search);
@@ -96,7 +127,8 @@ public class UserDAO implements Serializable {
                 height = rs.getString("height");
                 weight = rs.getString("weight");
                 dateJoined = rs.getDate("dateJoined");
-                result = new UserDTO(username, role, fullname, abilities, powers, height, weight, dateJoined);
+                urlAvatar = rs.getString("urlAvatar");
+                result = new UserDTO(username, role, fullname, abilities, powers, height, weight, dateJoined, urlAvatar);
             }
         } finally {
             closeConnection();
@@ -148,7 +180,7 @@ public class UserDAO implements Serializable {
         boolean check = false;
         
         try {
-            String sql = "INSERT INTO [User](username, password, role, fullname, abilities, powers, height, weight, dateJoined) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO [User](username, password, role, fullname, abilities, powers, height, weight, dateJoined, isDeactive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
             conn = DBConnection.getConnection();
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, dto.getUsername());
@@ -176,6 +208,34 @@ public class UserDAO implements Serializable {
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, urlAvatar);
             preStm.setString(2, username);
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+    
+    public boolean deactiveUser(String username) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        try {
+            String sql = "UPDATE [User] SET isDeactive = 1 WHERE username = ?";
+            conn = DBConnection.getConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, username);
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+    
+    public boolean deleteUser(String username) throws SQLException, ClassNotFoundException {
+        boolean check = false;
+        try {
+            String sql = "DELETE FROM [User] WHERE username = ?";
+            conn = DBConnection.getConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, username);
             check = preStm.executeUpdate() > 0;
         } finally {
             closeConnection();

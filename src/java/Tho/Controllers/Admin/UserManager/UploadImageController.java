@@ -27,7 +27,9 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
  */
 public class UploadImageController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp", SEARCH = "UserManager.SearchController";
+    private static final String ERROR = "error.jsp", 
+//            SEARCH = "UserManager.SearchController",
+            VIEW_INFO = "UserManager.ViewInfoController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,7 +74,7 @@ public class UploadImageController extends HttpServlet {
                     File savedFile = new File(realPath);
                     savedItem.write(savedFile);
                     if (new UserDAO().updateAvatarUser(username, "src/img/" + username + "." + extension)) {
-                        url = SEARCH + "?txtSearch=" + search;
+                        url = VIEW_INFO + "?txtUsername=" + username + "&txtSearch=" + search;
                     } else {
                         request.setAttribute("ERROR", "Upload avatar failed");
                     }

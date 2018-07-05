@@ -46,14 +46,17 @@ public class LoginController extends HttpServlet {
                 request.setAttribute("ERROR", "Invalid username or password");
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("USER", dao.findByUsername(username).getFullname());
+                session.setAttribute("USER", dao.findByUsername(username));
                 session.setAttribute("ROLE", role);
                 switch (role) {
-                    case "admin":
+                    case "Admin":
                         url = ADMIN;
                         break;
-                    case "user":
+                    case "User":
                         url = USER;
+                        break;
+                    case "deactived":
+                        request.setAttribute("ERROR", "Your account is deactived");
                         break;
                     default:
                         request.setAttribute("ERROR", "Your role is not supported");

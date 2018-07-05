@@ -37,9 +37,9 @@ public class RegistrationController extends HttpServlet {
         try {
             String role = (String) session.getAttribute("ROLE");
             if (role != null) {
-                if (role.equals("admin")) {
+                if (role.equals("Admin")) {
                     url = ADMIN;
-                } else if (role.equals("user")) {
+                } else if (role.equals("User")) {
                     url = USER;
                 }
             }
