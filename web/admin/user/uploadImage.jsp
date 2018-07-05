@@ -9,25 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Upload Avatar| ${param.txtUsername}</title>
+        <link href="<%= request.getContextPath()%>/src/css/app.css" rel="stylesheet" type="text/css"/>
+        <link href="<%= request.getContextPath()%>/src/css/infoUser.css" rel="stylesheet" type="text/css"/>
+        <script src="<%= request.getContextPath()%>/src/js/jquery.min.js" type="text/javascript"></script>
+        <link href="<%= request.getContextPath()%>/src/css/semantic.css" rel="stylesheet" type="text/css"/>
+        <link href="<%= request.getContextPath()%>/src/css/semantic.min.css" rel="stylesheet" type="text/css"/>
+        <script src="<%= request.getContextPath()%>/src/js/semantic.js" type="text/javascript"></script>
+        <script src="<%= request.getContextPath()%>/src/js/semantic.min.js" type="text/javascript"></script>
     </head>
     <body>
-        <h1>Upload Image</h1>
-        
-        <c:url var="searchInfo" value="UserManager.SearchController">
-            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
-            <c:param name="action" value="Search"></c:param>
-        </c:url>
-        
-        <form method="POST" action="UserManager.UploadImageController" enctype="multipart/form-data">
-            <input type="hidden" name="txtUsername" value="${param.txtUsername}"/>
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
-            <input type="file" name="urlAvatar"/>
-            
-            <a href="${searchInfo}"><button type="button">Skip</button></a>
-            <input id="action" name="action" type="submit" value="Upload"/>
-        </form>
-        
-
+        <%@include file="components/sideBar.jspf" %>
+        <div class="main-content">
+            <%@include file="components/uploadImage.jspf" %>
+        </div>
     </body>
 </html>

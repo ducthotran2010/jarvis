@@ -11,6 +11,7 @@ and open the template in the editor.
 body {
     display: flex;
     background-color: #ddd !important;
+    overflow: hidden;
 }
 
 .sideBar {
@@ -23,7 +24,16 @@ body {
 .main-content {
     flex: 1;
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+.banner {
+    text-transform: uppercase !important;
+    letter-spacing: 13.5px;
+    font-family: serif;
+    text-align: center;
+    border-bottom: 1px solid !important;
 }
 
 #particles-js{ 

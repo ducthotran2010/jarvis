@@ -9,27 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Reset password | ${param.txtUsername}</title>
+        <link href="<%= request.getContextPath()%>/src/css/app.css" rel="stylesheet" type="text/css"/>
+        <link href="<%= request.getContextPath()%>/src/css/infoUser.css" rel="stylesheet" type="text/css"/>
+        <script src="<%= request.getContextPath()%>/src/js/jquery.min.js" type="text/javascript"></script>
+        <link href="<%= request.getContextPath()%>/src/css/semantic.css" rel="stylesheet" type="text/css"/>
+        <link href="<%= request.getContextPath()%>/src/css/semantic.min.css" rel="stylesheet" type="text/css"/>
+        <script src="<%= request.getContextPath()%>/src/js/semantic.js" type="text/javascript"></script>
+        <script src="<%= request.getContextPath()%>/src/js/semantic.min.js" type="text/javascript"></script>
     </head>
     <body>
-        <h1>Reset password ${param.txtUser}</h1>
-
-        <c:url var="viewInfo" value="UserManager.MainController">
-            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
-            <c:param name="action" value="ViewInfo"></c:param>
-            <c:param name="txtUsername" value="${param.txtUsername}"></c:param>
-        </c:url>
-        
-        <form method="POST" action="UserManager.MainController">
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
-            <input type="hidden" name="txtType" value="User"/>
-            
-            <input readonly name="txtUsername" value="${param.txtUsername}"/>
-            <input name="txtPassword" type="password" />
-            <input name="txtPasswordConfirm" type="password" />
-            
-            <a href="${viewInfo}"><button type="button">Back to view</button></a>
-            <input name="action" value="Update password" type="submit" />
-        </form>
+        <%@include file="components/sideBar.jspf" %>
+        <div class="main-content">
+            <%@include file="components/resetPassword.jspf" %>
+        </div>
     </body>
 </html>

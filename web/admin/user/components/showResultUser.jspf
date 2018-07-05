@@ -1,0 +1,73 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Tho.Models.UserDTO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    ArrayList<UserDTO> result = (ArrayList<UserDTO>) request.getAttribute("INFO");
+    if (result != null) {
+%><h4>Result</h4><%
+    if (result.size() == 0) {
+%>No record found<%
+} else {
+%><div class="ui special five cards"><%
+    for (UserDTO dto : result) {%>
+    <div class="card">
+        <div class="blurring dimmable image">
+            <div class="ui dimmer">
+                <div class="content">
+                    <div class="center">
+                        <c:url var="urlDeactive" value="UserManager.MainController">
+                            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+                            <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
+                            <c:param name="action" value="Deactive"></c:param>
+                        </c:url>
+                        <c:url var="urlDelete" value="UserManager.MainController">
+                            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+                            <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
+                            <c:param name="action" value="Delete"></c:param>
+                        </c:url>
+                        <a 
+                            class="ui inverted button"
+                            href="${urlDeactive}">
+                            Deactive
+                        </a>
+                        <a 
+                            class="ui inverted red button" 
+                            style="margin-top: 10px;width: 97px"
+                            href="${urlDelete}">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <img src="<%= dto.getUrlAvatar()%>">
+        </div>
+        <div class="content">
+            <c:url var="viewInfo" value="UserManager.MainController">
+                <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+                <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
+                <c:param name="action" value="ViewInfo"></c:param>
+            </c:url>
+            <a class="header" href="${viewInfo}"><%= dto.getFullname()%></a>
+            <div class="meta">
+                <span class="date"><%= dto.getUsername()%></span>
+            </div>
+        </div>
+        <div class="extra content">
+            <span>
+                <i class="users icon"></i>
+                <%= dto.getRole()%>
+            </span>
+        </div>
+    </div>
+    <%
+        }
+    %></div><%
+            }
+        }
+    %>
+
+<script>
+    $('.special.cards .image').dimmer({on: 'hover'});
+</script>            

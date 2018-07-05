@@ -108,6 +108,14 @@
         <servlet-name>UserManager.UploadImageController</servlet-name>
         <servlet-class>Tho.Controllers.Admin.UserManager.UploadImageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserManager.DeleteController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.UserManager.DeleteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserManager.DeactiveController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.UserManager.DeactiveController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -216,14 +224,22 @@
         <servlet-name>UserManager.UploadImageController</servlet-name>
         <url-pattern>/UserManager.UploadImageController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManager.DeleteController</servlet-name>
+        <url-pattern>/UserManager.DeleteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManager.DeactiveController</servlet-name>
+        <url-pattern>/UserManager.DeactiveController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <error-page>
-            <error-code>404</error-code>
-            <location>/error.jsp</location>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
     </error-page>
     <welcome-file-list>
         <welcome-file>RegistrationController</welcome-file>

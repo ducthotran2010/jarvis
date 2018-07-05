@@ -1,0 +1,60 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+
+<div class="ui tiny modal">
+    <div class="header">Upload Avatar</div>    
+    <div class="content">   
+        <form class="ui form" method="POST" action="UserManager.UploadImageController" enctype="multipart/form-data">
+            <input type="hidden" name="txtUsername" value="${param.txtUsername}"/>
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
+
+            <input accept="image/*" type="file" name="urlAvatar" style="display: none"/>
+            <button id="chooseFile"class="ui button primary" type="button">Choose file</button>
+
+            <input name="action" type="hidden" value="Upload"/>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+    <div class="actions">
+        <form method="POST" action="UserManager.MainController" style="float: left">
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+            <input type="hidden" name="txtUsername" value="${param.txtUsername}" />
+            <input type="hidden" name="action" value="ViewInfo"/>
+            <input class="ui cancel button" type="submit" value="Back"/>
+        </form>
+
+        <button class="ui positive button" id="btnSubmit">Upload</button>
+    </div>
+</div>
+
+<script>
+    $('.ui.modal').modal({
+        closable: false,
+        onApprove: function () {
+            return false;
+        }
+    }).modal('show');
+
+//    INVOKE CHOOSE FILE
+    $('#chooseFile').click(() => {
+        $('input[type="file"]').trigger('click');
+    });
+
+//    INVOKE SUBMIT
+    $('#btnSubmit').click(() => {
+        $('.ui.form').submit();
+    });
+
+    $('.ui.form').form({
+        fields: {
+            urlAvatar: {
+                identifier: 'urlAvatar',
+                rules: [{
+                        type: 'empty',
+                        prompt: 'Please choose file to upload'
+                    }]
+            },
+        }
+    });
+</script>

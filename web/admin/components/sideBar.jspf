@@ -5,26 +5,20 @@
 
 <div class="sideBar ui inverted massive secondary vertical menu accordion">
     <div id="particles-js"></div> 
-
-    <a class="item">Jarvis Web</a>
-
-    <hr/>
+    
+    <a class="item banner">Jarvis Web</a>
 
     <div class="ui title item">
         <i class="dropdown icon"></i>
-        <p>
-            <i class="user icon"></i>
-            ${sessionScope.USER}
-        </p>
+            <img class="ui avatar image" src="<%= request.getContextPath() %>/${sessionScope.USER.urlAvatar}" style="background:#ddd"/>
+            ${sessionScope.USER.fullname}
     </div>
 
     <div class="content">
-        <a class="item" href=""><i class="user circle icon"></i>My profile</a>
-        <a class="item" href=""><i class="edit icon"></i>Edit profile</a>       
+        <a class="item" href="UserManager.MainController?action=ViewInfo&txtUsername=${sessionScope.USER.username}"><i class="user circle icon"></i>My profile</a>
+        <a class="item" href="UserManager.MainController?action=Edit&txtUsername=${sessionScope.USER.username}"><i class="edit icon"></i>Edit profile</a>       
         <a class="item" href="<%= request.getContextPath()%>/MainController?action=Logout"><i class="power off icon"></i>Logout</a>
     </div>
-
-    <hr/>
 
     <a  
         id="SB-Dashboard" 
@@ -37,7 +31,7 @@
     <a 
         id="SB-UserManager"
         class="item" 
-        href="<%= request.getContextPath()%>/RedirectController?page=admin/user/index.jsp">
+        href="<%= request.getContextPath()%>/UserManager.SearchController">
         <i class="users icon"></i>
         User Manager
     </a>
