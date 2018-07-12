@@ -1,0 +1,142 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+
+<div class="ui active fullscreen modal" style="display: none;">
+    <div class="header">${requestScope.INFO_MISSION.name}</div>
+    <div class="image content">
+        <div class="image" style="padding:10px 20px 0 0;">
+            <div class="ui card">
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <form method="POST" action="MissionManager.MainController">
+                                    <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+                                    <input type="hidden" name="txtId" value="${requestScope.INFO_MISSION.id}" />
+                                    <input 
+                                        type="submit"
+                                        name="action"
+                                        value="Update image" 
+                                        class="ui inverted button"
+                                        />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="<%= request.getContextPath()%>/${requestScope.INFO_MISSION.urlImage}">      
+                </div>
+            </div>
+        </div>
+
+
+
+        <table class="image content">
+            <tr>
+                <td>Mission id</td>
+                <td>${requestScope.INFO_MISSION.id}</td>
+            </tr>
+            <tr>
+                <td>Mission name</td>
+                <td>${requestScope.INFO_MISSION.name}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>${requestScope.INFO_MISSION_REAL_STATUS}</td>
+            </tr>
+            <tr>
+                <td>Start date</td>
+                <td>${requestScope.INFO_MISSION.dateStart}</td>
+            </tr>
+            <tr>
+                <td>End date</td>
+                <td>${requestScope.INFO_MISSION.dateEnd}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>${requestScope.INFO_MISSION.description}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="actions" style="border-bottom: 1px solid rgba(34,36,38,.15);">
+        <form style="float: left" method="POST" action="MissionManager.SearchController">
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+            <input class="ui cancel button" type="submit" value="Back"/>
+        </form>
+
+        <form method="POST" action="MissionManager.MainController">
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+            <input type="hidden" name="txtId" value="${requestScope.INFO_MISSION.id}" />
+            <input class="ui negative button" name="action" value="Remove" type="submit" />
+            <input class="ui positive button" name="action" value="Edit" type="submit" />
+        </form>
+    </div>        
+    <div class="content">
+        <div class="ui container">
+            <h2>Avengers in mission</h2>
+            <c:forEach items="${requestScope.ALL_USER_IN_MISSION}" var="dto">
+                <div class="ui large image label">
+                    <img src="<%= request.getContextPath()%>/${dto.urlAvatar}">
+                    ${dto.fullname}
+                    <a href="MissionManager.MainController?action=QuitMission&txtUsername=${dto.username}&txtId=${requestScope.INFO_MISSION.id}" style="padding-left: 15px;">
+                        <i class="delete icon"></i>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+        <c:if test="${(requestScope.INFO_MISSION_REAL_STATUS != 'Failed') 
+                  and (requestScope.INFO_MISSION_REAL_STATUS != 'Completed')
+                  and (requestScope.INFO_MISSION_REAL_STATUS != 'Cancelled')}">
+            <form id="formAddUser" class="ui search" action="MissionManager.MainController" methotd="POST">
+                <div class="ui large fluid left icon action input" style="margin-top: 10px;">
+                    <i class="search icon"></i>
+                    <input id="searchAvenger" class="prompt" type="text" placeholder="Enter avenger name..." style=" border-radius: .28571429rem 0 0 .28571429rem "/>
+                    <input type="hidden" name="txtUsername" id="txtUsername" />
+                    <input type="hidden" name="txtId" value="${requestScope.INFO_MISSION.id}" />
+                    <input type="hidden" name="action" value="AddUserToMission" />
+                    <button type="submit" class="ui primary button">Add</button>
+                </div>
+                <div class="results"></div>
+            </form>
+        </c:if>
+    </div>
+</div>
+
+<script>
+    $('.ui.card .image').dimmer({on: 'hover'});
+    $('.ui.active.modal').transition('fade');
+    $('.ui.search').search({
+        minCharacters: 1,
+        apiSettings: {
+            onResponse: function (responseText) {
+                var response = {results: []};
+                const maxResults = 5;
+                $.each(responseText, function (index, item) {
+                    if (index >= maxResults) {
+                        return false;
+                    }
+                    response.results.push({
+                        title: item.fullname,
+                        description: item.username,
+                        image: item.image
+                    });
+                });
+                return response;
+            },
+            url: 'MissionManager.SearchUserByFullnameController?txtFullname={query}',
+        },
+        onSelect: function (result) {
+            $('#txtUsername').val(result.description);
+            return true;
+        }
+    });
+    $('#formAddUser').submit((event) => {
+        if ($('#txtUsername').val() === '') {
+            event.preventDefault();
+            $('#searchAvenger').attr('placeholder', 'Please select a avenger on search result before adding...');
+        }
+    });
+    $('#searchAvenger').on('focus', () => {
+        $('#txtUsername').val('');
+        $('#searchAvenger').val('');
+    });
+</script>

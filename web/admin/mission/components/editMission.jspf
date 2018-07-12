@@ -1,0 +1,146 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="Tho.Models.MissionDTO"%>
+<%@page import="java.util.Calendar"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.sql.Date"%>
+<%@ page pageEncoding="UTF-8" %>
+<%! Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());%>
+
+<div class="ui active fullscreen modal" style="display: none;">
+    <div class="header">${requestScope.INFO_MISSION.name}</div>    
+    <div class="image content">
+        <form class="ui form" method="POST" action="MissionManager.MainController"  style="width: 100%">
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
+
+            <div class="fields">
+                <div class="six wide field">
+                    <label>Mission id</label>
+                    <input readonly name="txtId" value="${requestScope.INFO_MISSION.id}"/>
+                </div>
+                <div class="ten wide field">
+                    <label>Mission name</label>
+                    <input name="txtName" value="${requestScope.INFO_MISSION.name}"/>
+                </div>
+
+            </div>
+
+
+            <div class="field">
+                <label>Description</label>
+                <textarea rows="5" name="txtDescription">${requestScope.INFO_MISSION.description}</textarea>
+            </div>
+
+            <div class="three fields">
+                <div class="field">
+                    <label>Start date</label>
+                    <input type="date" name="txtDateStart" id="txtDateStart" value="${requestScope.INFO_MISSION.dateStart}" min="${requestScope.INFO_MISSION.dateStart}"/>
+    
+                </div>
+                <div class="field">
+                    <label>End date</label>
+                    <input type="date" name="txtDateEnd" id="txtDateEnd" value="${requestScope.INFO_MISSION.dateEnd}"/>
+                </div>
+                <div class="field">
+                    <label>Status</label>
+                    <select id="txtStatus" name="txtStatus" class="ui fluid dropdown"></select>
+                </div>
+            </div>
+            <input name="action" type="hidden" value="Update"/>
+        </form>
+    </div>
+    <div class="actions">
+        <c:url var="ViewInfo" value="MissionManager.ViewInfoController">
+            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+            <c:param name="txtId" value="${param.txtId}"></c:param>
+        </c:url>
+        <a href="${ViewInfo}" class="ui cancel button" style="float:left">Back</a>
+        <button id="btnSubmit" class="ui positive button">Update</button>
+    </div>            
+</div>
+
+<% MissionDTO dto = (MissionDTO) request.getAttribute("INFO_MISSION");%>
+<script>
+    $('#btnSubmit').click(() => {
+        $('.ui.form').submit();
+    });
+    $('#txtDateEnd').attr('min', $('#txtDateStart').val());
+
+    $.post("MissionManager.MainController", {
+        action: "Get Status",
+        txtDateStart: $('#txtDateStart').val(),
+        txtDateEnd: $('#txtDateEnd').val()
+    }, function (responseText) {
+        var $select = $("#txtStatus");
+        $select.find("option").remove();
+        jQuery.parseJSON(responseText).map(i => {
+            $("<option>").val(i).text(i).appendTo($select);
+        });
+        $('#txtStatus option[value="<%= dto.getRealStatus(currentDate)%>"]').attr('selected','true');
+    });
+
+    $('#txtDateStart').change(() => {
+        $('#txtDateEnd').val('');
+        $('#txtDateEnd').attr('min', $('#txtDateStart').val());
+        $.post("MissionManager.MainController", {
+            action: "Get Status",
+            txtDateStart: $('#txtDateStart').val(),
+            txtDateEnd: $('#txtDateEnd').val()
+        }, function (responseText) {
+            var $select = $("#txtStatus");
+            $select.find("option").remove();
+            jQuery.parseJSON(responseText).map(i => {
+                $("<option>").val(i).text(i).appendTo($select);
+            });
+            $('#txtStatus option[value="<%= dto.getRealStatus(currentDate)%>"]').attr('selected','true');
+        });
+    });
+
+    $('#txtDateEnd').change(() => {
+        $.post("MissionManager.MainController", {
+            action: "Get Status",
+            txtDateStart: $('#txtDateStart').val(),
+            txtDateEnd: $('#txtDateEnd').val()
+        }, function (responseText) {
+            var $select = $("#txtStatus");
+            $select.find("option").remove();
+            jQuery.parseJSON(responseText).map(i => {
+                $("<option>").val(i).text(i).appendTo($select);
+            });
+            $('#txtStatus option[value="<%= dto.getRealStatus(currentDate)%>"]').attr('selected','true');
+        });
+    });
+
+
+    $('.ui.active.modal').transition('zoom');
+    $('.ui.dropdown').dropdown();
+    
+    $('.ui.form').form({
+        inline: true,
+        on: 'blur',
+        fields: {
+            txtId: {
+                identifier: 'txtId',
+                rules: [{
+                        type: 'regExp[/^[a-zA-Z0-9]{1,20}$/]',
+                        prompt: 'Mission id must be 1-20 letters or digits'
+                    }]
+            },
+            txtName: {
+                identifier: 'txtName',
+                rules: [{type: 'maxLength[20]'}, {type: 'empty'}]
+            },
+            txtStatus: {
+                identifier: 'txtStatus',
+                rules: [{type: 'empty', prompt: 'Please select Start date first'}]
+            },
+            txtDescription: {
+                identifier: 'txtDescription',
+                rules: [{type: 'maxLength[500]'}]
+            },
+            txtDateStart: {
+                identifier: 'txtDateStart',
+                rules: [{type: 'empty'}]
+            }
+        }
+    });
+</script>
