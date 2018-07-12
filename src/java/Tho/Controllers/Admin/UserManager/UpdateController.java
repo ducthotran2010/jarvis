@@ -10,15 +10,10 @@ import Tho.Models.UserDAO;
 import Tho.Models.UserDTO;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -26,9 +21,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
  */
 
 public class UpdateController extends HttpServlet {
-    private static final String UPLOAD_DIR = "src/img";
     private static final String ERROR = "error.jsp", SUCCESS_USER = "UserManager.ViewInfoController";
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,7 +48,13 @@ public class UpdateController extends HttpServlet {
             UserDTO dto = new UserDTO(username, role, fullname, abilities, powers, height, weight, dateJoined);
             UserDAO dao = new UserDAO();
             if (dao.updateUser(dto)) {
-                url = SUCCESS_USER;
+                String BackTo = request.getParameter("BackTo");
+                if (BackTo != null) {
+                    url = BackTo;
+                    request.getSession().setAttribute("USER", dao.findByUsername(username));
+                } else {
+                    url = SUCCESS_USER;
+                }
             } else {
                 request.setAttribute("ERROR", "Could not update information's user");
             }

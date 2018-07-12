@@ -1,11 +1,10 @@
-package Tho.Controllers.Admin.UserManager;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Tho.Models.UserDAO;
+package Tho.Controllers.Admin.UserManager;
+
 import Tho.Models.UserDTO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,11 +17,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author ThoDT
  */
-public class ViewInfoController extends HttpServlet {
+public class ViewMyProfileController extends HttpServlet {
 
     private static final String ERROR = "error.jsp",
-            VIEWINFO = "admin/user/infoUser.jsp",
-            VIEW_MY_PROFILE = "UserManager.ViewMyProfileController";
+            VIEW_MY_PROFILE = "admin/profile/index.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +36,12 @@ public class ViewInfoController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("txtUsername");
-            username = (username == null) ? "" : username;
-
             HttpSession session = request.getSession();
-            UserDTO myDTO = (UserDTO) session.getAttribute("USER");
-
-            if (username.equals(myDTO.getUsername())) {
-                url = VIEW_MY_PROFILE;
-            } else {
-                UserDAO dao = new UserDAO();
-                UserDTO dto = dao.findByUsername(username);
-                request.setAttribute("INFO_USER", dto);
-                url = VIEWINFO;
-            }
+            UserDTO dto = (UserDTO) session.getAttribute("USER");
+            request.setAttribute("INFO_USER", dto);
+            url = VIEW_MY_PROFILE;
         } catch (Exception e) {
-            log("Error at UserManager.ViewInfoController", e);
+            log("Error at UserManager.ViewMyInfoController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -73,8 +73,15 @@ public class UploadImageController extends HttpServlet {
                     String realPath = getServletContext().getRealPath("/") + "src\\img\\" + username + "." + extension;
                     File savedFile = new File(realPath);
                     savedItem.write(savedFile);
-                    if (new UserDAO().updateAvatarUser(username, "src/img/" + username + "." + extension)) {
-                        url = VIEW_INFO + "?txtUsername=" + username + "&txtSearch=" + search;
+                    UserDAO dao = new UserDAO();
+                    if (dao.updateAvatarUser(username, "src/img/" + username + "." + extension)) {
+                        String BackTo = (String) params.get("BackTo");
+                        if (!BackTo.equals("")) {
+                            url = BackTo;
+                            request.getSession().setAttribute("USER", dao.findByUsername(username));
+                        } else {
+                            url = VIEW_INFO + "?txtUsername=" + username + "&txtSearch=" + search;
+                        }
                     } else {
                         request.setAttribute("ERROR", "Upload avatar failed");
                     }

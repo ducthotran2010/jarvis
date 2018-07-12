@@ -37,7 +37,12 @@ public class UpdatePasswordController extends HttpServlet {
             String password = request.getParameter("txtPassword");
             UserDAO dao = new UserDAO();
             if (dao.updatePasswordUser(username, password)) {
-                url = SUCCESS;
+                String BackTo = request.getParameter("BackTo");
+                if (BackTo != null) {
+                    url = BackTo;
+                } else {
+                    url = SUCCESS;
+                }
             } else {
                 request.setAttribute("ERROR", "Could not reset user's password");
             }
