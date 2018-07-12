@@ -1,13 +1,13 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<form id="formSearch" method="POST" action="UserManager.MainController">
+<form id="formSearch" method="POST" action="UserViewer.MainController">
     <input type="hidden" name="action" value="Search"/>
     <div id="fieldSearch" class="ui fluid action huge input">
         <input 
             type="text" 
             name="txtSearch" 
             value="${param.txtSearch}" 
-            placeholder="Search users by Fullname..." 
+            placeholder="Search users by fullname..." 
             autofocus 
             />
         <button id="buttonSearch" class="ui icon primary huge button" type="submit">

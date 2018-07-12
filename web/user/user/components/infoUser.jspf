@@ -6,23 +6,7 @@
     <div class="image content">
         <div class="image" style="padding:10px 20px 0 0;">
             <div class="ui card">
-                <div class="blurring dimmable image">
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <form method="POST" action="UserManager.MainController">
-                                    <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
-                                    <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
-                                    <input 
-                                        type="submit"
-                                        name="action"
-                                        value="Update avatar" 
-                                        class="ui inverted button"
-                                        />
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <div class="image">
                     <img src="<%= request.getContextPath()%>/${requestScope.INFO_USER.urlAvatar}">      
                 </div>
             </div>
@@ -62,24 +46,14 @@
             </tr>
         </table>
     </div>
-    <div class="actions">
-        <form style="float: left" method="POST" action="UserManager.SearchController">
+    <div class="actions" style="text-align: left">
+        <form method="POST" action="UserViewer.SearchController">
             <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
             <input class="ui cancel button" type="submit" value="Back"/>
-        </form>
-
-        <form method="POST" action="UserManager.MainController">
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
-            <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
-            <input class="ui secondary button" name="action" value="Deactive" type="submit" />
-            <input class="ui negative button" name="action" value="Delete" type="submit" />
-            <input class="ui primary button" name="action" value="Reset password" type="submit" />
-            <input class="ui positive button" name="action" value="Edit" type="submit" />
         </form>
     </div>        
 </div>
 
 <script>
-    $('.ui.card .image').dimmer({on: 'hover'}); 
     $('.ui.active.modal').transition('zoom');
 </script>

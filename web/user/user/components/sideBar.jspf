@@ -3,5 +3,5 @@
 <!--SIDEBAR-->
 <%@include file="../../components/sideBar.jspf" %>
 <script>
-    $('#SB-UserManager').attr('class', 'active item');
+    $('#SB-UserViewer').attr('class', 'active item');
 </script>
