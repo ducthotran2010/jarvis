@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UpdateController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp", SUCCESS_MISSION = "MissionManager.SearchController";
+    private static final String ERROR = "error.jsp", VIEW_INFO = "MissionManager.ViewInfoController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,13 +42,14 @@ public class UpdateController extends HttpServlet {
             Date dateStart = MyDate.getDate(request.getParameter("txtDateStart"));
             Date dateEnd = MyDate.getDate(request.getParameter("txtDateEnd"));
             String status = request.getParameter("txtStatus");
+            String description = request.getParameter("txtDescription");
             if (!status.equals("Completed") && !status.equals("Failed") && !status.equals("Cancelled")) {
                 status = "Base on real time";
             }
-            MissionDTO dto = new MissionDTO(id, name, status, dateStart, dateEnd);
+            MissionDTO dto = new MissionDTO(id, name, description, status, dateStart, dateEnd);
             MissionDAO dao = new MissionDAO();
             if (dao.updateMission(dto)) {
-                url = SUCCESS_MISSION;
+                url = VIEW_INFO;
             } else {
                 request.setAttribute("ERROR", "Could not update information's mission");
             }

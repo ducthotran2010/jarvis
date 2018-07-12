@@ -5,8 +5,10 @@
  */
 package Tho.Controllers.Admin.MissionManager;
 
-import Tho.Models.MissionDAO;
+import Tho.Models.UserDAO;
+import Tho.Models.UserDTO;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ThoDT
  */
-public class CheckIdController extends HttpServlet {
-    
+public class SearchUserByFullnameController extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,17 +32,23 @@ public class CheckIdController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String respondText = "existed";
+        String JSON = "[ ";
         try {
-            String id = request.getParameter("txtId");
-            MissionDAO dao = new MissionDAO();
-            if (dao.findByMissionId(id) == null) {
-                respondText = "available";
+            String fullname = request.getParameter("txtFullname");
+            if (fullname != null) {
+                ArrayList<UserDTO> result = (ArrayList<UserDTO>) new UserDAO().findByLikeFullname(fullname);
+                for (UserDTO item : result) {
+                    JSON += "{"
+                            + " \"fullname\": \"" + item.getFullname() + "\","
+                            + " \"image\": \"" + item.getUrlAvatar() + "\","
+                            + " \"username\": \"" + item.getUsername() + "\"},";
+                }
             }
         } catch (Exception e) {
-            log("Error at MissionManager.CheckIdController", e);
+            log("Error at MissionManager.SearchUserByFullnameController", e);
         } finally {
-            response.getWriter().write(respondText);
+            JSON = JSON.substring(0, JSON.length() - 1) + "]";
+            response.getWriter().write(JSON);
         }
     }
 

@@ -5,7 +5,7 @@
  */
 package Tho.Controllers.Admin.MissionManager;
 
-import Tho.Models.MissionDAO;
+import Tho.Models.MissionDetailDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ThoDT
  */
-public class CheckIdController extends HttpServlet {
-    
+public class QuitMissionController extends HttpServlet {
+
+    private static final String ERROR = "error.jsp",
+            VIEW_INFO = "MissionManager.ViewInfoController";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,17 +33,19 @@ public class CheckIdController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String respondText = "existed";
+        String url = ERROR;
         try {
             String id = request.getParameter("txtId");
-            MissionDAO dao = new MissionDAO();
-            if (dao.findByMissionId(id) == null) {
-                respondText = "available";
+            String username = request.getParameter("txtUsername");
+            if (new MissionDetailDAO().quitMission(username, id)) {
+                url = VIEW_INFO;
+            } else {
+                request.setAttribute("ERROR", "Could not quit this mission by user");
             }
         } catch (Exception e) {
-            log("Error at MissionManager.CheckIdController", e);
+            log("Error at MissionManager.QuitMissionController", e);
         } finally {
-            response.getWriter().write(respondText);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -6,22 +6,30 @@
 package Tho.Controllers.Admin.MissionManager;
 
 import Tho.Models.MissionDAO;
-import Tho.Models.MissionDTO;
-import Tho.Models.MyDate;
+import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 /**
  *
  * @author ThoDT
  */
-public class AddController extends HttpServlet {
-    private static final String ERROR = "error.jsp",
-            UPLOAD_IMAGE = "admin/mission/uploadImage.jsp";
+public class UploadImageController extends HttpServlet {
+
+    private static final String ERROR = "error.jsp", 
+            VIEW_INFO = "MissionManager.ViewInfoController";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,23 +44,43 @@ public class AddController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String id = request.getParameter("txtId");
-            String name = request.getParameter("txtName");
-            String description = request.getParameter("txtDescription");
-            Date dateStart = MyDate.getDate(request.getParameter("txtDateStart"));
-            Date dateEnd = MyDate.getDate(request.getParameter("txtDateEnd"));
-            String status = request.getParameter("txtStatus");
-            if (!status.equals("Completed") && !status.equals("Failed") && !status.equals("Cancelled")) {
-                status = "Base on real time";
-            }
-            MissionDAO dao = new MissionDAO();
-            if (dao.addMission(new MissionDTO(id, name, description, status, dateStart, dateEnd))) {
-                url = UPLOAD_IMAGE;
-            } else {
-                request.setAttribute("ERROR", "Could not add new mission");
+            boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
+            if (isMultiPart) {
+                FileItemFactory factory = new DiskFileItemFactory();
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                List items = upload.parseRequest(new ServletRequestContext(request));
+
+                Iterator iter = items.iterator();
+                Hashtable params = new Hashtable();
+                String fileName = null;
+                FileItem savedItem = null;
+                while (iter.hasNext()) {
+                    FileItem item = (FileItem) iter.next();
+                    if (item.isFormField()) {
+                        params.put(item.getFieldName(), item.getString());
+                    } else {
+                        savedItem = item;
+                    }
+                }
+
+                String id = (String) params.get("txtId");
+                String search = (String) params.get("txtSearch");
+                if (savedItem != null) {
+                    String itemName = savedItem.getName();
+                    fileName = itemName.substring(itemName.indexOf("\\") + 1);
+                    String extension = fileName.substring(fileName.indexOf(".") + 1);
+                    String realPath = getServletContext().getRealPath("/") + "src\\img\\[Mission]" + id + "." + extension;
+                    File savedFile = new File(realPath);
+                    savedItem.write(savedFile);
+                    if (new MissionDAO().updateImage(id, "src/img/[Mission]" + id + "." + extension)) {
+                        url = VIEW_INFO + "?txtId=" + id + "&txtSearch=" + search;
+                    } else {
+                        request.setAttribute("ERROR", "Upload avatar failed");
+                    }
+                }
             }
         } catch (Exception e) {
-            log("Error at MissionManager.AddController", e);
+            log("Error at UploadImageController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -6,7 +6,13 @@
 package Tho.Controllers.Admin.MissionManager;
 
 import Tho.Models.MissionDAO;
+import Tho.Models.MissionDTO;
+import Tho.Models.MissionDetailDAO;
+import Tho.Models.UserDTO;
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ThoDT
  */
-public class CheckIdController extends HttpServlet {
-    
+public class ViewInfoController extends HttpServlet {
+    private static final String ERROR = "error.jsp",
+            VIEWINFO = "admin/mission/infoMission.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,17 +38,24 @@ public class CheckIdController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String respondText = "existed";
+        String url = ERROR;
         try {
             String id = request.getParameter("txtId");
-            MissionDAO dao = new MissionDAO();
-            if (dao.findByMissionId(id) == null) {
-                respondText = "available";
-            }
+            id = (id == null) ? "" : id;
+            
+            List<UserDTO> result = new MissionDetailDAO().getAllUserInMission(id);
+            request.setAttribute("ALL_USER_IN_MISSION", result);
+            
+            MissionDTO dto = new MissionDAO().findByMissionId(id);
+            Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());
+            request.setAttribute("INFO_MISSION_REAL_STATUS", dto.getRealStatus(currentDate));
+            request.setAttribute("INFO_MISSION", dto);
+            
+            url = VIEWINFO;
         } catch (Exception e) {
-            log("Error at MissionManager.CheckIdController", e);
+            log("Error at UserManager.ViewInfoController", e);
         } finally {
-            response.getWriter().write(respondText);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -39,7 +39,13 @@ public class SearchController extends HttpServlet {
             String search = request.getParameter("txtSearch");
             List result = null;
             MissionDAO myMissionDAO = new MissionDAO();
-            result = myMissionDAO.findByLikeMissionName(search);
+            
+            if (search != null) {
+                result = myMissionDAO.findByLikeMissionName(search);
+            } else {
+                result = myMissionDAO.getAllMission();
+            }
+            
             url = MISSION_MANAGER;
             request.setAttribute("INFO", result);
         } catch (Exception e) {

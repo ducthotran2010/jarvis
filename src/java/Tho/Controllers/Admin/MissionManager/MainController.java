@@ -18,13 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController extends HttpServlet {
     private static final String ERROR = "error.jsp",
             ADD = "MissionManager.AddController",
+            ADD_USER_TO_MISSION = "MissionManager.AddUserToMissionController",
             INPUT = "admin/mission/addMission.jsp",
             GET_STATUS = "MissionManager.GetStatusController",
             REMOVE = "MissionManager.RemoveController",
             SEARCH = "MissionManager.SearchController",
             EDIT = "MissionManager.EditController",
             UPDATE = "MissionManager.UpdateController",
-            CHECK_ID = "MissionManager.CheckIdController";
+            UPDATE_IMAGE = "admin/mission/uploadImage.jsp",
+            CHECK_ID = "MissionManager.CheckIdController",
+            VIEW_INFO = "MissionManager.ViewInfoController",
+            QUIT_MISSION = "MissionManager.QuitMissionController";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,6 +49,12 @@ public class MainController extends HttpServlet {
                 case "Add":
                     url = ADD;
                     break;
+                case "AddUserToMission":
+                    url = ADD_USER_TO_MISSION;
+                    break;
+                case "QuitMission":
+                    url = QUIT_MISSION;
+                    break;
                 case "Input Mission":
                     url = INPUT;
                     break;
@@ -63,8 +73,15 @@ public class MainController extends HttpServlet {
                 case "Update":
                     url = UPDATE;
                     break;
+                case "Update image":
+                    url = UPDATE_IMAGE;
+                    break;
                 case "Check Id":
                     url = CHECK_ID;
+                    break;
+                case "ViewInfo":
+                    url = VIEW_INFO;
+                    break;
                 default:
                     request.setAttribute("ERROR", "Your action is not support");
             }
