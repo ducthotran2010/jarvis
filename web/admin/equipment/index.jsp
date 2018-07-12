@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editMission
-    Created on : Jun 21, 2018, 9:22:11 PM
+    Document   : index
+    Created on : Jul 10, 2018, 10:04:35 PM
     Author     : ThoDT
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Equipment manager mananger | ${requestScope.INFO.name}</title>
+        <title>Equipment Manager</title>
         <link href="<%= request.getContextPath() %>/src/css/app.css" rel="stylesheet" type="text/css"/>
         <script src="<%= request.getContextPath() %>/src/js/jquery.min.js" type="text/javascript"></script>
         <link href="<%= request.getContextPath() %>/src/css/semantic.css" rel="stylesheet" type="text/css"/>
@@ -21,7 +21,14 @@
         <%@include file="components/sideBar.jspf" %>
         
         <div class="main-content">
-            <%@include file="components/editEquipment.jspf" %>
+            <!--SEARCH-->
+            <%@include file="components/searchEquipmentField.jspf" %>
+            
+            <!--ADD-->
+            <%@include file="components/addEquipmentField.jspf" %>
+            
+            <!--SHOW RESULT-->
+            <%@include file="components/showResultEquipment.jspf" %>
         </div>
     </body>
 </html>
