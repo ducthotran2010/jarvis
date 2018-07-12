@@ -7,7 +7,7 @@
             type="text" 
             name="txtSearch" 
             value="${param.txtSearch}" 
-            placeholder="Search users by Fullname..." 
+            placeholder="Search users by fullname..." 
             autofocus 
             />
         <button id="buttonSearch" class="ui icon primary huge button" type="submit">

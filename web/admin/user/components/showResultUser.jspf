@@ -13,36 +13,42 @@
 %><div class="ui special five cards"><%
     for (UserDTO dto : result) {%>
     <div class="card">
-        <div class="blurring dimmable image">
-            <div class="ui dimmer">
-                <div class="content">
-                    <div class="center">
-                        <c:url var="urlDeactive" value="UserManager.MainController">
-                            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
-                            <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
-                            <c:param name="action" value="Deactive"></c:param>
-                        </c:url>
-                        <c:url var="urlDelete" value="UserManager.MainController">
-                            <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
-                            <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
-                            <c:param name="action" value="Delete"></c:param>
-                        </c:url>
-                        <a 
-                            class="ui inverted button"
-                            href="${urlDeactive}">
-                            Deactive
-                        </a>
-                        <a 
-                            class="ui inverted red button" 
-                            style="margin-top: 10px;width: 97px"
-                            href="${urlDelete}">
-                            Delete
-                        </a>
+        <% if (!((UserDTO) request.getSession().getAttribute("USER")).getUsername().equals(dto.getUsername())) { %>
+            <div class="blurring dimmable image notme">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <c:url var="urlDeactive" value="UserManager.MainController">
+                                <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+                                <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
+                                <c:param name="action" value="Deactive"></c:param>
+                            </c:url>
+                            <c:url var="urlDelete" value="UserManager.MainController">
+                                <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+                                <c:param name="txtUsername" value="<%= dto.getUsername()%>"></c:param>
+                                <c:param name="action" value="Delete"></c:param>
+                            </c:url>
+                            <a 
+                                class="ui inverted button"
+                                href="${urlDeactive}">
+                                Deactive
+                            </a>
+                            <a 
+                                class="ui inverted red button" 
+                                style="margin-top: 10px;width: 97px"
+                                href="${urlDelete}">
+                                Delete
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <img src="<%= dto.getUrlAvatar()%>">
             </div>
-            <img src="<%= dto.getUrlAvatar()%>">
-        </div>
+        <% } else { %>
+            <div class="image">
+                <img src="<%= dto.getUrlAvatar()%>">
+            </div>
+        <% } %>
         <div class="content">
             <c:url var="viewInfo" value="UserManager.MainController">
                 <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
@@ -69,5 +75,5 @@
     %>
 
 <script>
-    $('.special.cards .image').dimmer({on: 'hover'});
+    $('.special.cards .image.notme').dimmer({on: 'hover'});
 </script>            
