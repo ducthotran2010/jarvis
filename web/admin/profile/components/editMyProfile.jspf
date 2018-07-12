@@ -11,8 +11,8 @@
                         <div class="content">
                             <div class="center">
                                 <form method="POST" action="UserManager.MainController">
-                                    <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
                                     <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
+                                    <input type="hidden" name="BackTo" value="UserManager.ViewMyProfileController"/>
                                     <input 
                                         type="submit"
                                         name="action"
@@ -42,11 +42,6 @@
                 <div class="three wide field">
                     <label>Role</label>
                     <select name="txtRole" class="ui fluid dropdown">
-                        <option 
-                            value="User" 
-                            ${requestScope.INFO_USER.role == 'User' ? 'selected' : null}>
-                            User
-                        </option>
                         <option 
                             value="Admin" 
                             ${requestScope.INFO_USER.role == 'Admin' ? 'selected' : null}>
@@ -81,16 +76,13 @@
                 </div>
             </div>
 
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
             <input type="hidden" name="action" value="Update"/>
+            <input type="hidden" name="BackTo" value="UserManager.ViewMyProfileController"/>
         </form>
     </div>
     <div class="actions">
-        <form method="POST" action="UserManager.MainController" style="float:left">
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
-            <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
-            <input type="hidden" name="action" value="ViewInfo"/>
-            <input class="ui cancel button" type="submit" value="Back"/>
+        <form style="float:left" action="UserManager.ViewMyProfileController" method="POST">
+            <button class="ui cancel button" type="submit">Back</button>
         </form>
         <button id="btnSubmit" class="ui positive button">Update</button>
     </div>

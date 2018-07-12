@@ -11,8 +11,8 @@
                         <div class="content">
                             <div class="center">
                                 <form method="POST" action="UserManager.MainController">
-                                    <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
                                     <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
+                                    <input type="hidden" name="BackTo" value="UserManager.ViewMyProfileController"/>
                                     <input 
                                         type="submit"
                                         name="action"
@@ -63,23 +63,16 @@
         </table>
     </div>
     <div class="actions">
-        <form style="float: left" method="POST" action="UserManager.SearchController">
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
-            <input class="ui cancel button" type="submit" value="Back"/>
-        </form>
-
         <form method="POST" action="UserManager.MainController">
-            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
             <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
-            <input class="ui secondary button" name="action" value="Deactive" type="submit" />
-            <input class="ui negative button" name="action" value="Delete" type="submit" />
             <input class="ui primary button" name="action" value="Reset password" type="submit" />
-            <input class="ui positive button" name="action" value="Edit" type="submit" />
+            <a href="UserManager.EditMyProfileController" class="ui positive button">Edit</a>
         </form>
+        
     </div>        
 </div>
 
 <script>
-    $('.ui.card .image').dimmer({on: 'hover'}); 
     $('.ui.active.modal').transition('zoom');
+    $('.ui.card .image').dimmer({on: 'hover'});
 </script>
