@@ -5,13 +5,14 @@
  */
 package Tho.Models;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author ThoDT
  */
-public class MyDate {
+public class MyDate implements Serializable {
 
     public static Date getDate(String txtDate) {
         Date result = null;

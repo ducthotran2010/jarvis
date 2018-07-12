@@ -16,6 +16,13 @@ public class UserDTO implements Serializable {
     private String username, password, role, fullname, abilities, powers, height, weight, urlAvatar = "src/img/default.png"; 
     private Date dateJoined;
 
+    public UserDTO(String username, String fullname, String urlAvatar) {
+        this.username = username;
+        this.fullname = fullname;
+        if (urlAvatar != null)
+            this.urlAvatar = urlAvatar;
+    }
+
     public UserDTO(String username, String role, String fullname, String abilities, String powers, String height, String weight, Date dateJoined) {
         this.username = username;
         this.role = role;

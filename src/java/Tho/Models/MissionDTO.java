@@ -15,27 +15,33 @@ import java.util.Vector;
  */
 public class MissionDTO implements Serializable {
 
-    private String id, name, status = "Base on real time";
+    private String id, name, description, status = "Base on real time", urlImage = "src/img/default.png";
     private Date dateStart, dateEnd;
 
     public MissionDTO(Date dateStart, Date dateEnd) {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
-
-    public MissionDTO(String id, String name, String status, Date dateStart, Date dateEnd) {
+    
+    public MissionDTO(String id, String name, String description, String status, Date dateStart, Date dateEnd) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.status = status;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
 
-    public MissionDTO(String id, String name, Date dateStart, Date dateEnd) {
+    public MissionDTO(String id, String name, String description, String status, Date dateStart, Date dateEnd, String urlImage) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.status = status;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        if (urlImage != null) {
+            this.urlImage = urlImage;
+        }
     }
 
     public String getId() {
@@ -77,9 +83,6 @@ public class MissionDTO implements Serializable {
             if (currentDate.before(dateStart)) {
                 result = "Waiting to start";
             } else if (dateEnd != null && currentDate.after(dateEnd)) {
-                System.out.println(currentDate);
-                System.out.println(dateEnd);
-                System.out.println(currentDate.compareTo(dateEnd));
                 result = "Waiting to update result";
             } else {
                 result = "Started";
@@ -120,5 +123,17 @@ public class MissionDTO implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 }
