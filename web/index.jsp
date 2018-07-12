@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Javis Web</title>
         <link href="src/css/semantic.css" rel="stylesheet" type="text/css"/>
         <link href="src/css/semantic.min.css" rel="stylesheet" type="text/css"/>
         <link href="src/css/loginpage.css" rel="stylesheet" type="text/css"/>

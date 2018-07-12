@@ -1,0 +1,106 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<div class="ui active fullscreen modal" style="display: none;">
+    <div class="header">${requestScope.INFO_USER.fullname}</div>    
+    <div class="image content">
+        <div class="image" style="padding:10px 20px 0 0;">
+            <div class="ui card">
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <form method="POST" action="UserManager.MainController">
+                                    <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+                                    <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
+                                    <input 
+                                        type="submit"
+                                        name="action"
+                                        value="Update avatar" 
+                                        class="ui inverted button"
+                                        />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="<%= request.getContextPath()%>/${requestScope.INFO_USER.urlAvatar}">      
+                </div>
+            </div>
+        </div>        
+        <form class="ui form" method="POST" action="UserManager.MainController" style="width: 100%">
+            <div class="fields">
+                <div class="five wide field">
+                    <label>Username</label>
+                    <input required readonly name="txtUsername" value="${requestScope.INFO_USER.username}"/>
+                </div>
+
+                <div class="eight wide field">
+                    <label>Fullname</label>
+                    <input required maxlength="50" name="txtFullname" value="${requestScope.INFO_USER.fullname}"/>
+                </div>
+
+                <div class="three wide field">
+                    <label>Role</label>
+                    <select name="txtRole" class="ui fluid dropdown">
+                        <option 
+                            value="User" 
+                            ${requestScope.INFO_USER.role == 'User' ? 'selected' : null}>
+                            User
+                        </option>
+                        <option 
+                            value="Admin" 
+                            ${requestScope.INFO_USER.role == 'Admin' ? 'selected' : null}>
+                            Admin
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Abilities</label>
+                <textarea rows="3" maxlength="250" name="txtAbilities">${requestScope.INFO_USER.abilities}</textarea>
+            </div>
+
+            <div class="field">
+                <label>Powers</label>
+                <textarea rows="3" maxlength="250" name="txtPowers">${requestScope.INFO_USER.powers}</textarea> 
+            </div>
+
+            <div class="three fields">
+                <div class="field">
+                    <label>Height</label>
+                    <input maxlength="250" name="txtHeight" value="${requestScope.INFO_USER.height}"/>
+                </div>
+                <div class="field">
+                    <label>Weight</label>
+                    <input maxlength="250" name="txtWeight" value="${requestScope.INFO_USER.weight}"/>
+                </div>
+                <div class="field">
+                    <label>Joined Date</label>
+                    <input type="date" name="txtdateJoined" value="${requestScope.INFO_USER.dateJoined}"/>
+                </div>
+            </div>
+
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
+            <input type="hidden" name="action" value="Update"/>
+        </form>
+    </div>
+    <div class="actions">
+        <form method="POST" action="UserManager.MainController" style="float:left">
+            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+            <input type="hidden" name="txtUsername" value="${requestScope.INFO_USER.username}" />
+            <input type="hidden" name="action" value="ViewInfo"/>
+            <input class="ui cancel button" type="submit" value="Back"/>
+        </form>
+        <button id="btnSubmit" class="ui positive button">Update</button>
+    </div>
+</div>
+
+<script>
+    $('.ui.card .image').dimmer({on: 'hover'});
+    $('.ui.active.modal').transition('fade');
+    $('.ui.dropdown').dropdown();
+    $('#btnSubmit').click(() => {
+        $('.ui.form').submit();
+    });
+</script>

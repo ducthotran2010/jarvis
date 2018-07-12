@@ -9,10 +9,6 @@
         <servlet-class>Tho.Controllers.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewInfoController</servlet-name>
-        <servlet-class>Tho.Controllers.ViewInfoController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RedictController</servlet-name>
         <servlet-class>Tho.Controllers.RedictController</servlet-class>
     </servlet>
@@ -116,6 +112,126 @@
         <servlet-name>UserManager.DeactiveController</servlet-name>
         <servlet-class>Tho.Controllers.Admin.UserManager.DeactiveController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MissionManager.ViewInfoController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.MissionManager.ViewInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionManager.UploadImageController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.MissionManager.UploadImageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionManager.RemoveController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.MissionManager.RemoveController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionManager.SearchUserByFullnameController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.MissionManager.SearchUserByFullnameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionManager.AddUserToMissionController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.MissionManager.AddUserToMissionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionManager.QuitMissionController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.MissionManager.QuitMissionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.MainController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.MainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.SearchController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.SearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.ViewInfoController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.ViewInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionViewer.MainController</servlet-name>
+        <servlet-class>Tho.Controllers.User.MissionViewer.MainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionViewer.SearchController</servlet-name>
+        <servlet-class>Tho.Controllers.User.MissionViewer.SearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionViewer.ViewInfoController</servlet-name>
+        <servlet-class>Tho.Controllers.User.MissionViewer.ViewInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.ViewMyProfileController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.ViewMyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.EditMyProfileController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.EditMyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.UpdateMyProfileController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.UpdateMyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.UpdateAvatarController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.UpdateAvatarController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserViewer.UpdateMyPasswordController</servlet-name>
+        <servlet-class>Tho.Controllers.User.UserViewer.UpdateMyPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionViewer.QuitMissionController</servlet-name>
+        <servlet-class>Tho.Controllers.User.MissionViewer.QuitMissionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionViewer.SearchUserByFullnameController</servlet-name>
+        <servlet-class>Tho.Controllers.User.MissionViewer.SearchUserByFullnameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MissionViewer.AddUserToMissionController</servlet-name>
+        <servlet-class>Tho.Controllers.User.MissionViewer.AddUserToMissionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserManager.ViewMyProfileController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.UserManager.ViewMyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserManager.EditMyProfileController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.UserManager.EditMyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.MainController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.MainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.SearchController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.SearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.RemoveController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.RemoveController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.AddController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.AddController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.EditController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.EditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.UpdateController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.UpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.UploadImageController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.UploadImageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EquipmentManager.CheckCodeController</servlet-name>
+        <servlet-class>Tho.Controllers.Admin.EquipmentManager.CheckCodeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -123,10 +239,6 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ViewInfoController</servlet-name>
-        <url-pattern>/ViewInfoController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RedictController</servlet-name>
@@ -177,14 +289,6 @@
         <url-pattern>/UserManager.ViewInfoController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Shit</servlet-name>
-        <url-pattern>/Shit</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Anou</servlet-name>
-        <url-pattern>/Anou</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UserManager.EditController</servlet-name>
         <url-pattern>/UserManager.EditController</url-pattern>
     </servlet-mapping>
@@ -232,6 +336,126 @@
         <servlet-name>UserManager.DeactiveController</servlet-name>
         <url-pattern>/UserManager.DeactiveController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionManager.ViewInfoController</servlet-name>
+        <url-pattern>/MissionManager.ViewInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionManager.UploadImageController</servlet-name>
+        <url-pattern>/MissionManager.UploadImageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionManager.RemoveController</servlet-name>
+        <url-pattern>/MissionManager.RemoveController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionManager.SearchUserByFullnameController</servlet-name>
+        <url-pattern>/MissionManager.SearchUserByFullnameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionManager.AddUserToMissionController</servlet-name>
+        <url-pattern>/MissionManager.AddUserToMissionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionManager.QuitMissionController</servlet-name>
+        <url-pattern>/MissionManager.QuitMissionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.MainController</servlet-name>
+        <url-pattern>/UserViewer.MainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.SearchController</servlet-name>
+        <url-pattern>/UserViewer.SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.ViewInfoController</servlet-name>
+        <url-pattern>/UserViewer.ViewInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionViewer.MainController</servlet-name>
+        <url-pattern>/MissionViewer.MainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionViewer.SearchController</servlet-name>
+        <url-pattern>/MissionViewer.SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionViewer.ViewInfoController</servlet-name>
+        <url-pattern>/MissionViewer.ViewInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.ViewMyProfileController</servlet-name>
+        <url-pattern>/UserViewer.ViewMyProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.EditMyProfileController</servlet-name>
+        <url-pattern>/UserViewer.EditMyProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.UpdateMyProfileController</servlet-name>
+        <url-pattern>/UserViewer.UpdateMyProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.UpdateAvatarController</servlet-name>
+        <url-pattern>/UserViewer.UpdateAvatarController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserViewer.UpdateMyPasswordController</servlet-name>
+        <url-pattern>/UserViewer.UpdateMyPasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionViewer.QuitMissionController</servlet-name>
+        <url-pattern>/MissionViewer.QuitMissionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionViewer.SearchUserByFullnameController</servlet-name>
+        <url-pattern>/MissionViewer.SearchUserByFullnameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MissionViewer.AddUserToMissionController</servlet-name>
+        <url-pattern>/MissionViewer.AddUserToMissionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManager.ViewMyProfileController</servlet-name>
+        <url-pattern>/UserManager.ViewMyProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManager.EditMyProfileController</servlet-name>
+        <url-pattern>/UserManager.EditMyProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.MainController</servlet-name>
+        <url-pattern>/EquipmentManager.MainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.SearchController</servlet-name>
+        <url-pattern>/EquipmentManager.SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.RemoveController</servlet-name>
+        <url-pattern>/EquipmentManager.RemoveController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.AddController</servlet-name>
+        <url-pattern>/EquipmentManager.AddController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.EditController</servlet-name>
+        <url-pattern>/EquipmentManager.EditController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.UpdateController</servlet-name>
+        <url-pattern>/EquipmentManager.UpdateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.UploadImageController</servlet-name>
+        <url-pattern>/EquipmentManager.UploadImageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EquipmentManager.CheckCodeController</servlet-name>
+        <url-pattern>/EquipmentManager.CheckCodeController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -244,4 +468,44 @@
     <welcome-file-list>
         <welcome-file>RegistrationController</welcome-file>
     </welcome-file-list>
+    <code>GET</code>
+    <code>POST</code>
+    <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 </web-app>
