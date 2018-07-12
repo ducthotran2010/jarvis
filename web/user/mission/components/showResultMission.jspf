@@ -1,0 +1,80 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Tho.Models.MissionDTO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    ArrayList<MissionDTO> resultMission = (ArrayList<MissionDTO>) request.getAttribute("INFO");
+    if (resultMission != null) {
+        %><h4>Result</h4><%
+        if (resultMission.size() == 0) {
+            %>No record found<%
+        } else { %>
+            <div class="ui divided items">
+                <%! Date currentDate = new Date(Calendar.getInstance().getTimeInMillis());%>
+                <% for (MissionDTO dto : resultMission) {
+                        String status = dto.getRealStatus(currentDate); 
+                        String color = "";
+                        switch(status) {
+                            case "Waiting to start": color = "blue"; break;
+                            case "Started": color = "blue"; break;
+                            case "Waiting to update result": color = "brown"; break;
+                            case "Failed": color = "red"; break;
+                            case "Completed": color = "green"; break;
+                            case "Cancelled": color = "black"; break;
+                        }
+                %><div class="item">
+                        <div class="image">
+                            <div class="ui card">
+                                <div class="blurring dimmable image">
+                                    <div class="ui dimmer">
+                                        <div class="content">
+                                            <div class="center">
+                                                <form method="POST" action="MissionViewer.MainController">
+                                                    <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+                                                    <input type="hidden" name="txtId" value="<%= dto.getId() %>" />
+                                                    <input 
+                                                        type="submit"
+                                                        name="action"
+                                                        value="Quit" 
+                                                        class="ui negative button"
+                                                        />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="<%= request.getContextPath()%>/<%= dto.getUrlImage() %>">      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <c:url var="viewInfo" value="MissionViewer.MainController">
+                                <c:param name="txtSearch" value="${param.txtSearch}"></c:param>
+                                <c:param name="txtId" value="<%= dto.getId()%>"></c:param>
+                                <c:param name="action" value="ViewInfo"></c:param>
+                            </c:url>
+                            <a class="header" href="${viewInfo}"><%= dto.getName()%></a>
+                            <div class="meta">
+                                <span class="ui violet label"><%= dto.getId()%></span>
+                                <div class="ui grey label">
+                                    <i class="calendar icon"></i> 
+                                    From <%= dto.getDateStart()%> to <%= dto.getDateEnd()%>
+                                </div>
+                                <span class="ui <%= color %> label"><%= status %></span>
+
+                            </div>
+                            <div class="description" style="white-space: pre-line">
+                                <p><%= (dto.getDescription() != null) ? dto.getDescription() : "" %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+    <% }
+    } %>
+    
+<script>
+    $('.ui.card .image').dimmer({on: 'hover'}); 
+</script>
