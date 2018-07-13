@@ -1,0 +1,93 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<h4>Result</h4>
+
+<c:if test="${not empty requestScope.INFO}">
+    <div class="ui divided items">
+        <c:forEach items="${requestScope.INFO}" var="dto">
+            <div class="item">
+                <div class="image">
+                    <div class="ui card">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <form method="POST" action="EquipmentManager.MainController" >
+                                            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
+                                            <input type="hidden" name="txtCode" value="${dto.code}"/>
+                                            <input
+                                                type="submit"
+                                                class="ui inverted button"
+                                                value="Update image"
+                                                name="action"
+                                                />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="${dto.urlImage}">
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <span class="header">${dto.name}</span>
+                    <div style="margin-top: 10px">
+                        <div class="ui violet label" data-tooltip="Equipment code">
+                            <i class="sticky note icon"></i> ${dto.code}
+                        </div>
+                        <c:if test="${dto.type == 'Suit'}">
+                            <div class="ui blue label" data-tooltip="Equipment type">
+                                <i class="street view icon"></i> 
+                                ${dto.type}
+                            </div>
+                        </c:if>
+                        <c:if test="${dto.type != 'Suit'}">
+                            <div class="ui green label" data-tooltip="Equipment type">
+                                <i class="table tennis icon"></i> 
+                                ${dto.type}
+                            </div>
+                        </c:if>
+
+                        <div class="ui grey label" data-tooltip="Owner">
+                            <i class="user icon"></i>
+                            ${dto.fullname}
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>${dto.description}</p>
+                    </div>
+                    <div  class="extra">
+                        <form method="POST" action="EquipmentManager.MainController">
+                            <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
+                            <input type="hidden" name="txtCode" value="${dto.code}" />
+
+                        </form>
+                        <form method="POST" action="EquipmentManager.MainController" >
+                            <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
+                            <input type="hidden" name="txtCode" value="${dto.code}"/>
+                            <input
+                                type="submit"
+                                class="ui right floated primary button"
+                                value="Edit"
+                                name="action"/>
+                            <input 
+                                type="submit"
+                                name="action"
+                                value="Remove" 
+                                class="ui right floated negative button"
+                                />
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</c:if>
+<c:if test="${empty INFO}">
+    No record found
+</c:if>
+<script>
+    $('.ui.card .image').dimmer({on: 'hover'});
+</script>
