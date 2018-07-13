@@ -1,6 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<form id="formSearch" method="POST" action="EquipmentManager.MainController">
+<form id="formSearch" method="POST" action="EquipmentViewer.MainController">
     <input type="hidden" name="action" value="Search"/>
     <div id="fieldSearch" class="ui fluid action huge input">
         <input 

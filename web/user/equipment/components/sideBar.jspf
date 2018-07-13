@@ -3,5 +3,5 @@
 <!--SIDEBAR-->
 <%@include file="../../components/sideBar.jspf" %>
 <script>
-    $('#SB-EquipmentManager').attr('class', 'active item');
+    $('#SB-EquipmentViewer').attr('class', 'active item');
 </script>

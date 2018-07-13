@@ -5,7 +5,7 @@
     <div class="header">Upload Image</div>    
     <div class="content">   
         
-        <form class="ui form" method="POST" action="EquipmentManager.UploadImageController" enctype="multipart/form-data">
+        <form class="ui form" method="POST" action="EquipmentViewer.UploadImageController" enctype="multipart/form-data">
             <input type="hidden" name="txtCode" value="${param.txtCode}"/>
             <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
 
@@ -17,7 +17,7 @@
         </form>
     </div>
     <div class="actions">
-        <form method="POST" action="EquipmentManager.SearchController" style="float: left">
+        <form method="POST" action="EquipmentViewer.SearchController" style="float: left">
             <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
             <input class="ui cancel button" type="submit" value="Back"/>
         </form>

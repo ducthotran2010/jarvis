@@ -6,32 +6,17 @@
 <div class="ui active fullscreen modal" style="display: none;">
     <div class="header">Edit equipment</div>    
     <div class="image content">
-        <form class="ui form" method="POST" action="EquipmentManager.MainController" style="width: 100%">
+        <form class="ui form" method="POST" action="EquipmentViewer.MainController" style="width: 100%">
             <div class="fields">
                 <div class="four wide field">
                     <label>Code</label>
-                    <input readonly name="txtCode" value="${requestScope.INFO.code}"
-                           style="padding-bottom: 11.5px;padding-top: 11.5px;"/>
+                    <input name="txtCode" value="${requestScope.INFO.code}"/>
                 </div>
-
-                <div class="twelve wide field ui search">
-                    <label>Owner</label>
-                    <div class="ui large fluid left icon input">
-                        <i class="search icon"></i>
-                        <input name="txtUserFullname" value="${requestScope.INFO.fullname}"
-                               id="searchAvenger" class="prompt" type="text" placeholder="Enter avenger name..." style=" border-radius: .28571429rem;"/>
-                        <input type="hidden" name="txtUsername" id="txtUsername" value="${requestScope.INFO.username}"/>
-                    </div>
-                    <div class="results"></div>
-                </div>
-            </div>
-
-            <div class="fields">
-                <div class="twelve wide field">
+                <div class="nine wide field">
                     <label>Equipment name</label>
                     <input name="txtName" value="${requestScope.INFO.name}"/>
                 </div>
-                <div class="four wide field">
+                <div class="three wide field">
                     <label>Equipment type</label>
                     <select name="txtType" class="ui fluid dropdown">
                         <option value="Suit"
@@ -59,7 +44,7 @@
         </form>
     </div>
     <div class="actions">
-        <c:url var="searchInfo" value="EquipmentManager.SearchController">
+        <c:url var="searchInfo" value="EquipmentViewer.SearchController">
             <c:param name="txtSearch" value="${param.txtSearch}"/>
         </c:url>
         <a 

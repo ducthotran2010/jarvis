@@ -13,7 +13,7 @@
                             <div class="ui dimmer">
                                 <div class="content">
                                     <div class="center">
-                                        <form method="POST" action="EquipmentManager.MainController" >
+                                        <form method="POST" action="EquipmentViewer.MainController" >
                                             <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
                                             <input type="hidden" name="txtCode" value="${dto.code}"/>
                                             <input
@@ -48,22 +48,17 @@
                                 ${dto.type}
                             </div>
                         </c:if>
-
-                        <div class="ui grey label" data-tooltip="Owner">
-                            <i class="user icon"></i>
-                            ${dto.fullname}
-                        </div>
                     </div>
                     <div class="description">
                         <p>${dto.description}</p>
                     </div>
                     <div  class="extra">
-                        <form method="POST" action="EquipmentManager.MainController">
+                        <form method="POST" action="EquipmentViewer.MainController">
                             <input type="hidden" name="txtSearch" value="${param.txtSearch}" />
                             <input type="hidden" name="txtCode" value="${dto.code}" />
 
                         </form>
-                        <form method="POST" action="EquipmentManager.MainController" >
+                        <form method="POST" action="EquipmentViewer.MainController" >
                             <input type="hidden" name="txtSearch" value="${param.txtSearch}"/>
                             <input type="hidden" name="txtCode" value="${dto.code}"/>
                             <input
