@@ -38,7 +38,15 @@
         class="item" 
         href="<%= request.getContextPath()%>/MissionViewer.SearchController">
         <i class="tasks icon"></i>
-        Mission Viewer
+        My Mission
+    </a>
+
+    <a 
+        id="SB-EquipmentViewer"
+        class="item" 
+        href="<%= request.getContextPath()%>/EquipmentViewer.SearchController">
+        <i class="tasks icon"></i>
+        My Equipment
     </a>
 
 </div>
