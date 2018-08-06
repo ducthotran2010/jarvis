@@ -2,12 +2,16 @@
 This is a demo web for my assignment from FPT University. It's about redesigning Jarvis service in form website for Iron Man (Tony Stark). 
 Jarvis can help avengers manager their profile, missions and all equipments.
 
+![login-screen](/sample/login.png "Login screen")
+
+
 ## Technologies
-* Netbeans IDE
 * Java servlet
-* jQuery
 * MS SQL Server
-* ParticularJS
+* jQuery
+* Chart JS
+* Semantic UI
+* Particle JS
 
 ## Features
 * Authorization avengers
