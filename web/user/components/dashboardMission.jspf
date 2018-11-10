@@ -1,0 +1,25 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div>
+    <canvas id="chartMission" width="400" height="400"></canvas>
+</div>
+<script>
+    const chartMission = document.getElementById("chartMission");
+    new Chart(chartMission, {
+        type: 'doughnut',
+        data: {
+            labels: ["Joined", "Quitted"],
+            datasets: [{
+                    data: [${requestScope.MissionJoined},
+                           ${requestScope.MissionQuitted},], 
+                    backgroundColor: [
+                        '#2185d0',
+                        'rgba(255, 0, 0, .5)',
+                    ]
+                }]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
+</script>

@@ -66,6 +66,35 @@ public class EquipmentDAO implements Serializable {
         return result;
     }
     
+    public List<EquipmentDTO> findByLikeEquipmentNameOfUser(String search, String username) throws ClassNotFoundException, SQLException {
+        List<EquipmentDTO> result = null;
+        String code, name, type, description, urlImage;
+
+        try {
+            String sql = "SELECT code, name, type, description, urlImage "
+                    + "FROM [Equipment] "
+                    + "WHERE name LIKE ? AND isRemoved <> 1 AND username = ?";
+            conn = DBConnection.getConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, "%" + search + "%");
+            preStm.setString(2, username);
+            rs = preStm.executeQuery();
+            result = new ArrayList<>();
+            while (rs.next()) {
+                code = rs.getString("code");
+                name = rs.getString("name");
+                type = rs.getString("type");
+                description = rs.getString("description");
+                urlImage = rs.getString("urlImage");
+                result.add(new EquipmentDTO(code, username, "", name, type, description, urlImage));
+            }
+        } finally {
+            closeConnection();
+        }
+
+        return result;
+    }
+    
     public List<EquipmentDTO> getAllEquipment() throws ClassNotFoundException, SQLException {
         List<EquipmentDTO> result = null;
         String code, username, fullname, name, type, description, urlImage;
@@ -87,6 +116,34 @@ public class EquipmentDAO implements Serializable {
                 description = rs.getString("description");
                 urlImage = rs.getString("urlImage");
                 result.add(new EquipmentDTO(code, username, fullname, name, type, description, urlImage));
+            }
+        } finally {
+            closeConnection();
+        }
+
+        return result;
+    }
+    
+    public List<EquipmentDTO> getAllEquipmentOfUser(String username) throws ClassNotFoundException, SQLException {
+        List<EquipmentDTO> result = null;
+        String code, name, type, description, urlImage;
+
+        try {
+            String sql = "SELECT code, name, type, description, urlImage "
+                    + "FROM [Equipment] "
+                    + "WHERE isRemoved <> 1 AND username = ?";
+            conn = DBConnection.getConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, username);
+            rs = preStm.executeQuery();
+            result = new ArrayList<>();
+            while (rs.next()) {
+                code = rs.getString("code");
+                name = rs.getString("name");
+                type = rs.getString("type");
+                description = rs.getString("description");
+                urlImage = rs.getString("urlImage");
+                result.add(new EquipmentDTO(code, username, "", name, type, description, urlImage));
             }
         } finally {
             closeConnection();

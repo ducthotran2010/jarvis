@@ -1,0 +1,44 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div>
+    <canvas id="chartUser" width="400" height="400"></canvas>
+</div>
+<script>
+    const chartUser = document.getElementById("chartUser");
+    const chartUserData = {
+        labels: ["Status", "Role"],
+        datasets: [{
+                label: "Active",
+                backgroundColor: "rgba(15, 162, 235, 1)",
+                data: [${requestScope.UserActive}],
+                stack: 1
+            }, {
+                label: "Deactive",
+                backgroundColor: "rgba(90, 90, 90, .5)",
+                borderColor: "rgba(90, 90, 90, 1)",
+                borderWidth: 2,
+                data: [${requestScope.UserDeactive}],
+                stack: 1
+            }, {
+                label: "User",
+                backgroundColor: "rgba(255, 206, 86, 1)",
+                data: [, ${requestScope.UserUser}],
+                stack: 1
+            }, {
+                label: "Admin",
+                backgroundColor: "rgba(255, 0, 0, .1)",
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 2,
+                data: [, ${requestScope.UserAdmin}],
+                stack: 1
+            }
+        ]
+    };
+    new Chart(chartUser, {
+        type: 'bar',
+        data: chartUserData,
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
+</script>

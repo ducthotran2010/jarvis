@@ -1,0 +1,26 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div>
+    <canvas id="chartEquipment" width="400" height="400"></canvas>
+</div>
+<script>
+    const chartEquipment = document.getElementById("chartEquipment");
+    var dataRadar = {
+        labels: ['Weapon', 'Suit', 'Removed'],
+        datasets: [{
+                data: [${requestScope.EquipmentWeapon},
+                    ${requestScope.EquipmentSuit},
+                    ${requestScope.EquipmentOther}],
+                backgroundColor: [
+                        'rgba(131, 9, 243, 0.9)',
+                        'rgba(243, 128, 9, 0.9)',
+                    ]
+            }]
+    };
+
+    new Chart(chartEquipment, {
+        type: 'pie',
+        data: dataRadar,
+        option: Chart.defaults.radar
+    });
+</script>

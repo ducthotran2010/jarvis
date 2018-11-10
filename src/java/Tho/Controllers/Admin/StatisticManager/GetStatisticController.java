@@ -3,27 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tho.Controllers;
+package Tho.Controllers.Admin.StatisticManager;
 
-import Tho.Models.UserDAO;
+import Tho.Models.StatisticDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ThoDT
  */
-public class LoginController extends HttpServlet {
-
-    private static final String ADMIN = "StatisticManager.GetStatisticController",
-            USER = "StatisticViewer.GetStatisticController",
-            ERROR = "error.jsp",
-            LOGIN = "index.jsp";
-
+public class GetStatisticController extends HttpServlet {
+    private static final String ERROR = "error.jsp", STATISTIC = "admin/index.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,34 +30,46 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = LOGIN;
+        String url = ERROR;
         try {
-            String username = request.getParameter("txtUsername");
-            String password = request.getParameter("txtPassword");
-            UserDAO dao = new UserDAO();
-            String role = dao.checkLogin(username, password);
-            if (role.equals("failed")) {
-                request.setAttribute("ERROR", "Invalid username or password");
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("USER", dao.findByUsername(username));
-                switch (role) {
-                    case "Admin":
-                        url = ADMIN;
-                        break;
-                    case "User":
-                        url = USER;
-                        break;
-                    case "deactived":
-                        request.setAttribute("ERROR", "Your account is deactived");
-                        break;
-                    default:
-                        request.setAttribute("ERROR", "Your role is not supported");
-                }
-            }
+            StatisticDAO dao = new StatisticDAO();
+            int UserActive = dao.getAmountOfActiveUser();
+            request.setAttribute("UserActive", UserActive);
+            
+            int UserDeactive = dao.getAmountOfDeactiveUser();
+            request.setAttribute("UserDeactive", UserDeactive);
+            
+            int UserAdmin = dao.getAmountOfAdmin();
+            request.setAttribute("UserAdmin", UserAdmin);
+            
+            int UserUser = dao.getAmountOfUser();
+            request.setAttribute("UserUser", UserUser);
+            
+            int MissionCompleted = dao.getAmountOfCompletedMission();
+            request.setAttribute("MissionCompleted", MissionCompleted);
+            
+            int MissionFailed = dao.getAmountOfFailedMission();
+            request.setAttribute("MissionFailed", MissionFailed);
+            
+            int MissionCancelled = dao.getAmountOfCancelledMission();
+            request.setAttribute("MissionCancelled", MissionCancelled);
+            
+            int MissionOther = dao.getAmountOfOtherMission();
+            request.setAttribute("MissionOther", MissionOther);
+            
+            int EquipmentWeapon = dao.getAmountOfWeapon();
+            request.setAttribute("EquipmentWeapon", EquipmentWeapon);
+            
+            int EquipmentSuit = dao.getAmountOfSuit();
+            request.setAttribute("EquipmentSuit", EquipmentSuit);
+            
+            int EquipmentOther = dao.getAmountOfRemovedEquipment();
+            request.setAttribute("EquipmentOther", EquipmentOther);
+            
+            url = STATISTIC;
+            
         } catch (Exception e) {
-            url = ERROR;
-            log("Error at LoginController", e);
+            log("Error at StatisticManager.GetStatisticController", e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

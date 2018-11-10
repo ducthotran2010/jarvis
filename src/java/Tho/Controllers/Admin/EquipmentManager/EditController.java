@@ -36,7 +36,6 @@ public class EditController extends HttpServlet {
         try {
             String code = request.getParameter("txtCode");
             EquipmentDTO dto = new EquipmentDAO().findByEquipmentCode(code);
-            System.out.println("code:" + dto.getCode());
             request.setAttribute("INFO", dto);
             url = EDIT;
         } catch (Exception e) {

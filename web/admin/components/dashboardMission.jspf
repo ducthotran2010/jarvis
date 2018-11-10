@@ -1,0 +1,29 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div>
+    <canvas id="chartMission" width="400" height="400"></canvas>
+</div>
+<script>
+    const chartMission = document.getElementById("chartMission");
+    new Chart(chartMission, {
+        type: 'doughnut',
+        data: {
+            labels: ["Completed", "Failed", "Cancelled", "Other"],
+            datasets: [{
+                    data: [${requestScope.MissionCompleted},
+                           ${requestScope.MissionFailed}, 
+                           ${requestScope.MissionCancelled}, 
+                           ${requestScope.MissionOther}],
+                    backgroundColor: [
+                        'rgba(55, 159, 59, .8)',
+                        'rgba(255, 0, 0, .5)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(0, 0, 0, .5)',
+                    ]
+                }]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
+</script>

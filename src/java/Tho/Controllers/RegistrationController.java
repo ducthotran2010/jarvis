@@ -5,6 +5,7 @@
  */
 package Tho.Controllers;
 
+import Tho.Models.UserDTO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,9 @@ import javax.servlet.http.HttpSession;
  */
 public class RegistrationController extends HttpServlet {
 
-    private static final String LOGIN = "index.jsp", ADMIN = "admin/index.jsp", USER = "user/index.jsp";
+    private static final String LOGIN = "index.jsp", 
+            ADMIN = "StatisticManager.GetStatisticController", 
+            USER = "StatisticViewer.GetStatisticController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +38,16 @@ public class RegistrationController extends HttpServlet {
         HttpSession session = request.getSession();
         String url = LOGIN;
         try {
-            String role = (String) session.getAttribute("ROLE");
-            if (role != null) {
+            UserDTO dto = (UserDTO) session.getAttribute("USER");
+            if (dto != null) {
+                String role = dto.getRole();
                 if (role.equals("Admin")) {
                     url = ADMIN;
                 } else if (role.equals("User")) {
                     url = USER;
                 }
             }
+
         } catch (Exception e) {
             log("Error at RegistrationController", e);
         } finally {

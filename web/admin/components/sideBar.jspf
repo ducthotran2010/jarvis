@@ -21,7 +21,7 @@
     <a  
         id="SB-Dashboard" 
         class="item" 
-        href="<%= request.getContextPath()%>/RedirectController?page=admin/index.jsp">
+        href="<%= request.getContextPath()%>/StatisticManager.GetStatisticController">
         <i class="grid layout icon"></i>
         Dashboard
     </a>
